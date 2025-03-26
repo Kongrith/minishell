@@ -2,10 +2,18 @@
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
+LDFLAGS = -lreadline
 
 NAME = minishell
 
-SRC = minishell.c 
+SRC = minishell.c \
+	  debug.c \
+	  init.c \
+	  env_list.c \
+	  env_util.c \
+	  free.c \
+	  signal.c \
+	  error.c
 
 HDR = .
 
@@ -24,7 +32,7 @@ debug: LIBFT_BUILD = debug
 debug: minishell
 
 $(NAME): $(OBJ) $(LIBFT) minishell.h
-	$(CC) $(CFLAGS) $(OBJ) $(LIBFT) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJ) $(LIBFT) -o $(NAME) $(LDFLAGS)
 
 %.o: %.c Makefile minishell.h 
 	$(CC) $(CFLAGS) -I $(HDR) -I $(LIBFT_DIR) -c $< -o $@

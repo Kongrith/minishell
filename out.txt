@@ -1,0 +1,19 @@
+total 88
+drwxr-xr-x  4 toon toon  4096 Mar 25 13:07 .
+drwxr-xr-x 17 toon toon  4096 Mar 24 16:09 ..
+drwxr-xr-x  8 toon toon  4096 Mar 25 13:00 .git
+-rw-r--r--  1 toon toon    63 Mar 20 20:36 .gitignore
+-rw-r--r--  1 toon toon   871 Mar 25 13:00 Makefile
+-rw-r--r--  1 toon toon    38 Mar 20 23:44 README.md
+-rw-r--r--  1 toon toon     0 Mar 25 13:07 a.txt
+-rw-r--r--  1 toon toon  1460 Mar 25 13:00 debug.c
+-rw-r--r--  1 toon toon  2315 Mar 25 13:00 env_list.c
+-rw-r--r--  1 toon toon  1706 Mar 25 13:00 env_util.c
+-rw-r--r--  1 toon toon   985 Mar 25 13:00 error.c
+-rw-r--r--  1 toon toon  1388 Mar 25 13:00 free.c
+-rw-r--r--  1 toon toon  1090 Mar 25 13:00 init.c
+drwxr-xr-x  2 toon toon  4096 Mar 25 13:00 libft
+-rwxr-xr-x  1 toon toon 22584 Mar 25 13:02 minishell
+-rw-r--r--  1 toon toon  1475 Mar 25 13:00 minishell.c
+-rw-r--r--  1 toon toon  2259 Mar 25 13:00 minishell.h
+-rw-r--r--  1 toon toon  1078 Mar 25 13:00 signal.c
