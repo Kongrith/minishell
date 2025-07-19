@@ -57,7 +57,10 @@ int	b_cd(t_sh *sh, t_cmd *cmd)
 	if (sh->oldwd)
 		free(sh->oldwd);
 	if (sh->cwd)
+	{
 		sh->oldwd = sh->cwd;
+		add_env_entry(sh, "OLDPWD", sh->oldwd);
+	}
 	cwd = getcwd(NULL, 0);
 	if (cwd)
 		sh->cwd = cwd;

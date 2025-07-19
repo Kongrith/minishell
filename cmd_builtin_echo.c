@@ -14,8 +14,18 @@
 
 int	echo_compare_args(t_sh *sh, t_cmd *cmd, int i, bool *new_line)
 {
-	if (ft_strcmp(cmd->args[i], "-n") == 0)
+	char	*ptr;
+
+	if (ft_strncmp(cmd->args[i], "-n", 2) == 0)
 	{
+		ptr = cmd->args[i];
+		ptr++;
+		while (*ptr)
+		{
+			if (*ptr != 'n')
+				return (i);
+			ptr++;
+		}
 		*new_line = false;
 		i++;
 	}

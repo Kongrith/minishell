@@ -42,13 +42,23 @@ void	sort_env(char **d, int size)
 
 void	export_no_arg(t_sh *sh)
 {
-	int	i;
+	int		i;
+	int		first_len;
+	int		last_len;
+	char	*equal_sign;
 
 	sort_env(sh->envp, sh->env_len);
 	i = 0;
 	while (sh->envp[i] != NULL)
 	{
-		printf("declare -x %s\n", sh->envp[i]);
+		equal_sign = ft_strchr(sh->envp[i], '=');
+		last_len = ft_strlen(equal_sign);
+		first_len = ft_strlen(sh->envp[i]) - last_len;
+		write(STDOUT_FILENO, "declare -x ", 11);
+		write(STDOUT_FILENO, sh->envp[i], first_len + 1);
+		write(STDOUT_FILENO, "\"", 1);
+		write(STDOUT_FILENO, sh->envp[i] + first_len + 1, last_len - 1);
+		write(STDOUT_FILENO, "\"\n", 2);
 		i++;
 	}
 }

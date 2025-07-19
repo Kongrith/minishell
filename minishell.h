@@ -218,6 +218,7 @@ bool		is_reg(char *cmd);
 bool		is_dir(char *cmd);
 bool		is_exec(char *cmd);
 int			ft_strcmp(const char *s1, const char *s2);
+size_t		ft_strcspn(const char *str, const char *reject);
 
 // cmd_list.c
 void		add_cmd(t_sh *sh, t_cmd *cmd);

@@ -50,3 +50,25 @@ int	ft_strcmp(const char *s1, const char *s2)
 	}
 	return (s1[i] - s2[i]);
 }
+
+size_t	ft_strcspn(const char *str, const char *reject)
+{
+	size_t		i;
+	const char	*r;
+
+	if (str == NULL || reject == NULL)
+		return (0);
+	i = 0;
+	while (str[i])
+	{
+		r = reject;
+		while (*r != '\0')
+		{
+			if (str[i] == *r)
+				return (i);
+			r++;
+		}
+		i++;
+	}
+	return (i);
+}

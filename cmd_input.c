@@ -17,6 +17,7 @@ void	input_handler(t_sh *sh)
 	if (!sh->input || !*sh->input)
 		return ;
 	add_history(sh->input);
+	sh->input[ft_strcspn(sh->input, "\n")] = '\0';
 	if (g_sigint_status)
 	{
 		sh->status = 130;
