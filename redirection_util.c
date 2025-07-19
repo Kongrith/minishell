@@ -1,31 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   redirection_heredoc_util.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: <rvesterl@student.42bangkok.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/24 14:49:12 by rvesterl          #+#    #+#             */
-/*   Updated: 2025/04/03 09:13:49 by rvesterl         ###   ########.fr       */
+/*   Created: 2025/07/10 22:12:20 by rvesterl          #+#    #+#             */
+/*   Updated: 2025/07/10 22:20:51 by rvesterl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	init_shell(t_sh *sh, char **envp)
+size_t	ft_strnlen(const char *s, size_t max_len)
 {
-	ft_memset(sh, 0, sizeof(*sh));
-	sh->envp = envp;
-	sh->status = 0;
-	sh->cwd = getcwd(NULL, 0);
-	if (!sh->cwd)
-	{
-		print_cwd_error(ERROR_ORIGIN_SHELL_INIT);
-		print_cwd_error(ERROR_ORIGIN_MAKEPATH);
-	}
-	if (sh->cwd)
-		sh->oldwd = ft_strdup(sh->cwd);
-	init_env_list(sh);
-	if (DEBUG)
-		print_env_list(sh->env_list);
+	size_t	len;
+
+	if (s == NULL)
+		return (0);
+	len = 0;
+	while (len < max_len && s[len] != '\0')
+		len++;
+	return (len);
+}
+
+char	*ft_strndup(const char *s, size_t n)
+{
+	size_t	len;
+	char	*dup;
+
+	if (s == NULL)
+		return (NULL);
+	len = ft_strnlen(s, n);
+	dup = (char *)malloc((sizeof(char) * len) + 1);
+	if (!dup)
+		return (NULL);
+	ft_memcpy(dup, s, len);
+	dup[len] = '\0';
+	return (dup);
 }

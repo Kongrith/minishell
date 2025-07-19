@@ -1,17 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isalnum.c                                       :+:      :+:    :+:   */
+/*   lexer_char_handler.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rvesterl <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: kkomasat <kkomasat@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/25 11:32:04 by rvesterl          #+#    #+#             */
-/*   Updated: 2025/05/01 13:48:35 by rvesterl         ###   ########.fr       */
+/*   Created: 2025/06/04 14:42:55 by kkomasat          #+#    #+#             */
+/*   Updated: 2025/07/12 17:00:41 by kkomasat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_isalnum(int c)
+#include "minishell.h"
+
+char	*handle_charactor(char *str, int *pos)
 {
-	return (((c >= 'a') && (c <= 'z')) || ((c >= 'A') && (c <= 'Z'))
-		|| ((c >= '0') && (c <= '9')));
+	char	*tmp;
+
+	tmp = (char *)ft_calloc(ft_strlen(str) + 1, sizeof(char));
+	tmp[0] = str[*pos];
+	tmp[1] = '\0';
+	return (tmp);
 }

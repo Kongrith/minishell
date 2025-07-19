@@ -6,7 +6,7 @@
 /*   By: <rvesterl@student.42bangkok.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 09:15:28 by rvesterl          #+#    #+#             */
-/*   Updated: 2024/09/16 13:10:20 by rvesterl         ###   ########.fr       */
+/*   Updated: 2025/05/01 16:50:45 by rvesterl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,8 @@ static void	*set_format_content(void *content, t_pformat *pf)
 static int	set_format(t_pformat *pf)
 {
 	pf->tot_len = 0;
-	pf->lst_res = ft_lstmap_pf(pf->lst_seg, pf, set_format_content, \
-		del_lst_res_content);
+	pf->lst_res = ft_lstmap_pf(pf->lst_seg, pf, set_format_content,
+			del_lst_res_content);
 	if (!pf->lst_res)
 		return (0);
 	return (1);

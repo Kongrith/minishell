@@ -6,7 +6,7 @@
 /*   By: <rvesterl@student.42bangkok.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 08:59:45 by rvesterl          #+#    #+#             */
-/*   Updated: 2024/09/30 10:47:28 by rvesterl         ###   ########.fr       */
+/*   Updated: 2025/05/10 09:55:36 by rvesterl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,16 +66,4 @@ t_fileinfo	*ft_get_fd(t_list *lst, int fd)
 		lst = lst->next;
 	}
 	return (NULL);
-}
-
-void	*ft_memcpy(void *dest, const void *src, size_t len)
-{
-	const char	*s;
-	char		*d;
-
-	s = (const char *) src;
-	d = (char *) dest;
-	while (len--)
-		*d++ = *s++;
-	return (dest);
 }

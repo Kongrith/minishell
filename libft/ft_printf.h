@@ -6,7 +6,7 @@
 /*   By: <rvesterl@student.42bangkok.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 12:01:46 by rvesterl          #+#    #+#             */
-/*   Updated: 2024/10/07 15:48:42 by rvesterl         ###   ########.fr       */
+/*   Updated: 2025/05/01 13:52:05 by rvesterl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ typedef struct s_cont
 int		ft_printf(const char *str, ...)
 		__attribute__ ((format (printf, 1, 2)));
 char	*ft_putnbr_base(long lnbr, char *base);
-t_list	*ft_lstmap_pf(t_list *lst, t_pformat *pf, \
-		void *(*f)(void *, t_pformat *), void (*del)(void *));
+t_list	*ft_lstmap_pf(t_list *lst, t_pformat *pf,
+			void *(*f)(void *, t_pformat *), void (*del)(void *));
 size_t	ft_conv_pos(const char *str, size_t pos);
 void	ft_conversion(size_t i, char *cstr, t_cont *cs, t_pformat *pf);
 void	print_lst_seg(void *lst_content);

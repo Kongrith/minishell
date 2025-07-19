@@ -6,7 +6,7 @@
 /*   By: <rvesterl@student.42bangkok.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 08:46:45 by rvesterl          #+#    #+#             */
-/*   Updated: 2025/03/25 12:02:03 by rvesterl         ###   ########.fr       */
+/*   Updated: 2025/04/25 09:29:24 by rvesterl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,25 @@ char	*env_list_to_envp(char *name, char *value)
 	line[len_name] = '=';
 	ft_memcpy(&line[len_name] + 1, value, len_value);
 	return (line);
+}
+
+void	update_envp(t_sh *sh)
+{
+	t_env	*tmp;
+	int		i;
+
+	if (sh->envp != NULL)
+		free_envp(sh->envp);
+	sh->envp = malloc(sizeof(*sh->envp) * (sh->env_len + 1));
+	if (!sh->envp)
+		perror_exit("malloc", EXIT_FAILURE);
+	tmp = sh->env_list;
+	i = 0;
+	while (tmp)
+	{
+		sh->envp[i] = env_list_to_envp(tmp->name, tmp->value);
+		i++;
+		tmp = tmp->next;
+	}
+	sh->envp[i] = NULL;
 }

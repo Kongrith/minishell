@@ -6,7 +6,7 @@
 /*   By: <rvesterl@student.42bangkok.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 16:18:46 by rvesterl          #+#    #+#             */
-/*   Updated: 2025/03/24 17:06:30 by rvesterl         ###   ########.fr       */
+/*   Updated: 2025/06/29 05:16:36 by kkomasat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	free_envp(char **envp)
 {
-	size_t	i;
+	int	i;
 
 	i = 0;
 	while (envp[i])
@@ -48,4 +48,25 @@ void	free_env_list(t_sh *sh)
 	}
 	if (sh->envp)
 		free_envp(sh->envp);
+}
+
+void	free_args(char **args)
+{
+	int	i;
+
+	i = -1;
+	while (args[++i])
+		if (args[i])
+			free(args[i]);
+	free(args);
+}
+
+void	free_sh(t_sh *sh)
+{
+	if (sh->input)
+		free(sh->input);
+	if (sh->cwd)
+		free(sh->cwd);
+	if (sh->oldwd)
+		free(sh->oldwd);
 }

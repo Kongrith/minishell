@@ -6,7 +6,7 @@
 /*   By: <rvesterl@student.42bangkok.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 13:54:35 by rvesterl          #+#    #+#             */
-/*   Updated: 2025/03/25 12:00:51 by rvesterl         ###   ########.fr       */
+/*   Updated: 2025/05/01 13:34:12 by rvesterl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	init_env_list(t_sh *sh)
 {
-	size_t	i;
+	int		i;
 	char	*name;
 	char	*value;
 	char	*offset;
@@ -29,7 +29,7 @@ void	init_env_list(t_sh *sh)
 		{
 			name = env_name_dup(sh->envp[i], offset);
 			value = env_value_dup(offset);
-			add_env_list(sh, name, value);
+			add_env_entry(sh, name, value);
 			free(name);
 			free(value);
 		}
@@ -38,32 +38,14 @@ void	init_env_list(t_sh *sh)
 	sh->envp = NULL;
 }
 
-void	update_envp(t_sh *sh)
-{
-	t_env	*tmp;
-	size_t	i;
-
-	if (sh->envp != NULL)
-		free_envp(sh->envp);
-	sh->envp = malloc(sizeof(*sh->envp) * (sh->env_len + 1));
-	if (!sh->envp)
-		perror_exit("malloc", EXIT_FAILURE);
-	tmp = sh->env_list;
-	i = 0;
-	while (tmp)
-	{
-		sh->envp[i] = env_list_to_envp(tmp->name, tmp->value);
-		i++;
-		tmp = tmp->next;
-	}
-	sh->envp[i] = NULL;
-}
-
-void	add_env_list(t_sh *sh, char *name, char *value)
+// Adds new environment variable, value will be updated if name exist.
+void	add_env_entry(t_sh *sh, char *name, char *value)
 {
 	t_env	*new;
 
-	new = malloc(sizeof(t_env));
+	if (update_env_entry(sh->env_list, name, value))
+		return ;
+	new = ft_calloc(1, sizeof(t_env));
 	if (!new)
 		perror_exit("malloc", EXIT_FAILURE);
 	new->name = ft_strdup(name);
@@ -77,21 +59,72 @@ void	add_env_list(t_sh *sh, char *name, char *value)
 	}
 	else
 		new->value = NULL;
+	if (DEBUG)
+		printf("Debug -- Added env name '%s' with value '%s'\n", name, value);
 	new->next = sh->env_list;
 	sh->env_list = new;
 	sh->env_len++;
 }
 
-t_env	*get_env(t_env *env, char *name)
+t_env	*get_env_entry(t_env *env, char *name)
 {
 	t_env	*lst;
 
 	lst = env;
 	while (lst)
 	{
-		if (ft_strncmp(lst->name, name, ft_strlen(name)) == 0)
+		if (ft_strcmp(lst->name, name) == 0)
 			return (lst);
 		lst = lst->next;
 	}
 	return (NULL);
+}
+
+bool	update_env_entry(t_env *env, char *name, char *updated_value)
+{
+	t_env	*lst;
+
+	lst = get_env_entry(env, name);
+	if (!lst)
+		return (false);
+	if (DEBUG)
+		printf("Debug -- Updating env name '%s' from value '%s' to '%s'.\n",
+			name, lst->value, updated_value);
+	if (lst->value)
+	{
+		free(lst->value);
+		lst->value = NULL;
+	}
+	lst->value = ft_strdup(updated_value);
+	if (!lst->value)
+		perror_exit("malloc", EXIT_FAILURE);
+	return (true);
+}
+
+void	del_env_entry(t_sh *sh, char *name)
+{
+	t_env	*current;
+	t_env	*previous;
+
+	current = sh->env_list;
+	previous = NULL;
+	while (current)
+	{
+		if (ft_strcmp(current->name, name) == 0)
+		{
+			if (DEBUG)
+				printf("Debug -- unset env variable: %s\n", name);
+			if (previous)
+				previous->next = current->next;
+			else
+				sh->env_list = current->next;
+			free(current->name);
+			free(current->value);
+			free(current);
+			sh->env_len--;
+			return ;
+		}
+		previous = current;
+		current = current->next;
+	}
 }

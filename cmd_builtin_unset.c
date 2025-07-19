@@ -1,31 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   cmd_builtin_unset.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: <rvesterl@student.42bangkok.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/24 14:49:12 by rvesterl          #+#    #+#             */
-/*   Updated: 2025/04/03 09:13:49 by rvesterl         ###   ########.fr       */
+/*   Created: 2025/04/04 14:32:13 by rvesterl          #+#    #+#             */
+/*   Updated: 2025/04/25 09:30:59 by rvesterl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	init_shell(t_sh *sh, char **envp)
+int	b_unset(t_sh *sh, t_cmd *cmd)
 {
-	ft_memset(sh, 0, sizeof(*sh));
-	sh->envp = envp;
-	sh->status = 0;
-	sh->cwd = getcwd(NULL, 0);
-	if (!sh->cwd)
+	int	i;
+
+	if (cmd->args[1])
 	{
-		print_cwd_error(ERROR_ORIGIN_SHELL_INIT);
-		print_cwd_error(ERROR_ORIGIN_MAKEPATH);
+		i = 0;
+		while (cmd->args[++i])
+		{
+			if (cmd->args[i])
+				del_env_entry(sh, cmd->args[i]);
+		}
 	}
-	if (sh->cwd)
-		sh->oldwd = ft_strdup(sh->cwd);
-	init_env_list(sh);
-	if (DEBUG)
-		print_env_list(sh->env_list);
+	return (0);
 }

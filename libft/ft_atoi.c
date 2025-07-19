@@ -6,7 +6,7 @@
 /*   By: rvesterl <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 08:05:19 by rvesterl          #+#    #+#             */
-/*   Updated: 2024/08/28 09:31:47 by rvesterl         ###   ########.fr       */
+/*   Updated: 2025/05/01 13:53:12 by rvesterl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
@@ -16,8 +16,8 @@ static int	walk_space(const char *s)
 	int	i;
 
 	i = 0;
-	while (s[i] == ' ' || s[i] == '\f' || s[i] == '\n' || \
-		s[i] == '\r' || s[i] == '\t' || s[i] == '\v')
+	while (s[i] == ' ' || s[i] == '\f' || s[i] == '\n'
+		|| s[i] == '\r' || s[i] == '\t' || s[i] == '\v')
 		i++;
 	return (i);
 }
